@@ -13,4 +13,6 @@ class BeautifulSoupMiddleware(object):
 
     def process_response(self, request, response, spider):
         """Overridden process_response would "pipe" response.body through BeautifulSoup."""
+        if response.url.endswith('.xml'):
+            return response
         return response.replace(body=str(BeautifulSoup(response.body, self.parser)))
